@@ -2,13 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "caps_word.h"
-#include "color.h"
 #include "gw_oled.h"
 #include "os_detection.h"
 #include "process_combo.h"
 #include "quantum.h"
 #include "rgb_matrix.h"
-#include "steno_keycodes.h"
 #include QMK_KEYBOARD_H
 
 // clang-format off
@@ -149,6 +147,35 @@ combo_t key_combos[] = {
 };
 
 // clang-format on
+
+/* ******************* */
+/* ENCODERS BEGIN      */
+/* ******************* */
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            rgblight_increase_val_noeeprom();
+        } else {
+            rgblight_decrease_val_noeeprom();
+        }
+    }
+    return false;
+}
+
+/* ******************* */
+/* ENCODERS END        */
+/* ******************* */
+
+/* ******************* */
+/* KEYCODES BEGIN      */
+/* ******************* */
 
 static uint8_t host_is_apple = 0;
 static uint8_t cpy_mod       = MOD_MASK_CTRL;
@@ -369,6 +396,10 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+/* ******************* */
+/* KEYCODES END        */
+/* ******************* */
 
 /* ******************* */
 /* RGB SECTION BEGIN   */
