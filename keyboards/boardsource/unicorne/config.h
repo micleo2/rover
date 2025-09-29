@@ -33,4 +33,3 @@
 #define LEADER_TIMEOUT 3000
 
 #define FORCE_NKRO
-#define STENO_COMBINEDMAP
