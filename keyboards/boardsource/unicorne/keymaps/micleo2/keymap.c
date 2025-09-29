@@ -35,6 +35,7 @@ enum layers {
 // base left thumb
 #define BSE_LTB GUI_T(KC_SPC)
 
+#define KC_LCKSCRN C(G(KC_Q))
 enum my_keycodes {
   // Following codes use platform-dependent modifier
   KC_ZMIN = SAFE_RANGE,
@@ -50,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BSE] = LAYOUT_split_3x6_3(
     _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
     PWR_SFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
-    _______,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
+    _______,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       KC_LCKSCRN,
                                                 CTL_T(KC_ESC), BSE_LTB,       KC_ENT,               KC_HYPR,       SFT_T(KC_BSPC),OSL(M)
 ),
 
