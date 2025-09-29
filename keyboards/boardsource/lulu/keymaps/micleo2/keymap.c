@@ -25,7 +25,6 @@ enum layers {
   _SYS, // Sysctrl
   _NUM, // Numpad
   _BLN, // Blender
-  _PLV, // Plover
   _GME, // Game
 };
 
@@ -35,7 +34,6 @@ enum layers {
 #define Y _SYS
 #define U _NUM
 #define L _BLN
-#define P _PLV
 #define E _GME
 
 // This denotes the key you used to enter into the layer.
@@ -53,7 +51,6 @@ enum my_keycodes {
   // Following codes use platform-dependent modifier
   KC_ZMIN = SAFE_RANGE,
   KC_ZMOUT,
-  KC_CLSTB, // close tab
   // Multi-character
   KC_HMEDIR,
   KC_CURDIR,
@@ -64,10 +61,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT(
   KC_ESC,        KC_1,          KC_2,         KC_3,          KC_4,          KC_5,                                        KC_6,          KC_7,          KC_8,         KC_9,          KC_0,          QK_BOOT,
-  TG(_PLV),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                                        KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
+  _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                                        KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
   PWR_SFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                                        KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
-  TG(_BLN),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,          _______,       _______,       KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
-                                KC_TAB,       CTL_T(KC_ESC), BSE_LTB,       SFT_T(KC_ENT),                               HYPR_T(KC_SPC),SFT_T(KC_BSPC),OSL(M),       TG(_GME)
+  TG(_BLN),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,          _______,       _______,       KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       _______,
+                                KC_TAB,       CTL_T(KC_ESC), BSE_LTB,       SFT_T(KC_ENT),                               KC_HYPR,       SFT_T(KC_BSPC),OSL(M),       TG(_GME)
 ),
 
 [_SYM] = LAYOUT(
@@ -83,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       C(KC_TAB),     KC_TAB,       LSFT(KC_TAB),  C(S(KC_TAB)),  _______,
   _______,       _______,       _______,      _______,       ___E___,       _______,                                     KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       _______,       _______,
   _______,       _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       KC_ZMOUT,      KC_HOME,      KC_END,        KC_ZMIN,       _______,
-                                _______,      _______,       _______,       _______,                                     KC_CLSTB,      KC_ENT,        _______,      _______
+                                _______,      _______,       _______,       _______,                                     _______,       KC_ENT,        _______,      _______
 ),
 
 [_SYS] = LAYOUT(
@@ -108,14 +105,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,       _______,       _______,      _______,       _______,       LT(0, KC_G),                                 _______,       _______,       _______,      _______,       _______,       _______,
   TG(_BLN),      _______,       LT(0, KC_X),  LT(0, KC_C),   LT(0, KC_V),   _______,       _______,       _______,       _______,       _______,       _______,      _______,       _______,       _______,
                                 _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______
-),
-
-[_PLV] = LAYOUT(
-  _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
-  TG(_PLV),      _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
-  _______,       STN_S1,        STN_TL,       STN_PL,        STN_HL,        STN_ST1,                                     STN_ST3,       STN_FR,        STN_PR,       STN_LR,        STN_TR,        STN_DR,
-  _______,       STN_S2,        STN_KL,       STN_WL,        STN_RL,        STN_ST2,       _______,       _______,       STN_ST4,       STN_RR,        STN_BR,       STN_GR,        STN_SR,        STN_ZR,
-                                STN_AO,       STN_A,         STN_O,         STN_AO,                                      STN_EU,        STN_E,         STN_U,        STN_EU
 ),
 
 [_GME] = LAYOUT(
@@ -289,13 +278,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_mods(cpy_mod);
             }
             return false;
-        case KC_CLSTB:
-            if (record->event.pressed) {
-                register_mods(cpy_mod);
-                tap_code16(KC_W);
-                unregister_mods(cpy_mod);
-            }
-            return false;
         // When tapped: oneshot shift.
         // When tapped while holding shift: toggle caps word.
         // When held: hold shift.
@@ -434,9 +416,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             SET_COLOR(HSV_RED);
             break;
         case _NUM:
-        case _PLV:
-            SET_COLOR(HSV_GREEN);
-            break;
         case _BLN:
             SET_COLOR(HSV_ORANGE);
             break;
@@ -555,9 +534,6 @@ bool oled_task_user() {
             oled_write_raw(gw_bomb, sizeof(gw_bomb));
             break;
         case _NUM:
-        case _PLV:
-            oled_write_raw(gw_key, sizeof(gw_key));
-            break;
         case _BLN:
             oled_write_raw(gw_flagman_right, sizeof(gw_flagman_right));
             break;
