@@ -3,19 +3,12 @@
 #include "quantum.h"
 #include "unicode.h"
 
-// clang-format off
-
-// template
-/*  _______,       _______,       _______,      _______,       _______,       _______,              _______,       _______,       _______,      _______,       _______,       _______, */
-// formatting macro:
-// mk2kWjrf<t_ý>a`kWkvehyjPwkr <t_ý>aj
-
 enum layers {
-  _BSE, // Base
-  _SYM, // Symbol
-  _NAV, // Navigation
-  _SYS, // Sysctrl
-  _NUM, // Numpad
+    _BSE, // Base
+    _SYM, // Symbol
+    _NAV, // Navigation
+    _SYS, // Sysctrl
+    _NUM, // Numpad
 };
 
 #define B _BSE
@@ -34,25 +27,35 @@ enum layers {
 #define BSE_F LT(N, KC_F)
 // base left thumb
 #define BSE_LTB GUI_T(KC_SPC)
+#define BSE_RTB SFT_T(KC_BSPC)
 
 #define KC_LCKSCRN C(G(KC_Q))
 enum my_keycodes {
-  // Following codes use platform-dependent modifier
-  KC_ZMIN = SAFE_RANGE,
-  KC_ZMOUT,
-  // Multi-character
-  KC_HMEDIR,
-  KC_CURDIR,
-  KC_UPDIR,
+    // Following codes use platform-dependent modifier
+    KC_ZMIN = SAFE_RANGE,
+    KC_ZMOUT,
+    // Multi-character
+    KC_HMEDIR,
+    KC_CURDIR,
+    KC_UPDIR,
+    KC_THE,
+    KC_WITH,
 };
+
+// clang-format off
+
+// template row for key map
+/*  _______,       _______,       _______,      _______,       _______,       _______,              _______,       _______,       _______,      _______,       _______,       _______, */
+// formatting macro:
+// mk2kWjrf<t_ý>a`kWkvehyjPwkr <t_ý>aj
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
     PWR_SFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
-    _______,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       KC_LCKSCRN,
-                                                CTL_T(KC_ESC), BSE_LTB,       KC_ENT,               KC_HYPR,       SFT_T(KC_BSPC),OSL(M)
+    QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       KC_LCKSCRN,
+                                                CTL_T(KC_ESC), BSE_LTB,       KC_ENT,               KC_HYPR,       BSE_RTB,       OSL(M)
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -85,6 +88,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+/* ******************** */
+/* COMBOS SECTION BEGIN */
+/* ******************** */
+
 #define SEQ_END 0
 
 const uint16_t PROGMEM chrd_goto_ws1[] = {BSE_S, BSE_LTB, KC_M, SEQ_END};
@@ -101,6 +108,9 @@ const uint16_t PROGMEM chrd_curdir[]  = {BSE_S, BSE_D, BSE_F, SEQ_END};
 const uint16_t PROGMEM chrd_homedir[] = {BSE_S, BSE_D, BSE_F, KC_J, SEQ_END};
 const uint16_t PROGMEM chrd_updir[]   = {BSE_S, BSE_D, BSE_F, KC_K, SEQ_END};
 
+const uint16_t PROGMEM chrd_the[]  = {BSE_LTB, BSE_RTB, SEQ_END};
+const uint16_t PROGMEM chrd_with[] = {BSE_LTB, BSE_RTB, KC_W, SEQ_END};
+
 combo_t key_combos[] = {
   COMBO(chrd_goto_ws1, G(KC_1)),
   COMBO(chrd_goto_ws2, G(KC_2)),
@@ -114,7 +124,13 @@ combo_t key_combos[] = {
   COMBO(chrd_curdir, KC_CURDIR),
   COMBO(chrd_homedir, KC_HMEDIR),
   COMBO(chrd_updir, KC_UPDIR),
+  COMBO(chrd_the, KC_THE),
+  COMBO(chrd_with, KC_WITH),
 };
+
+/* ****************** */
+/* COMBOS SECTION END */
+/* ****************** */
 
 // clang-format on
 
@@ -140,14 +156,25 @@ void downarrow_key_pressed_cb(void);
 
 void refresh_key_pressed_cb(void);
 
-/* ********************* */
-/* KEYCODE SECTION BEGIN */
-/* ********************* */
+/* ********************** */
+/* TAP-HOLD SECTION BEGIN */
+/* ********************** */
+
+// clang-format off
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R',
+                       '*', '*', '*',  '*', '*', '*'
+    );
+// clang-format on
 
 // return true to immediately select the hold action when another key is pressed.
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case BSE_LTB:
+        case BSE_S:
+        case BSE_F:
         case CTL_T(KC_ESC):
         case SFT_T(KC_BSPC):
             return true;
@@ -155,6 +182,13 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+/* ******************** */
+/* TAP-HOLD SECTION END */
+/* ******************** */
+
+/* ********************* */
+/* KEYCODE SECTION BEGIN */
+/* ********************* */
 
 static uint8_t copypaste_modifier = 0;
 // Register the platform-correct copy/paste modifier.
@@ -254,6 +288,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_UPDIR:
             if (record->event.pressed) {
                 SEND_STRING("../");
+                break;
+            }
+        case KC_THE:
+            if (record->event.pressed) {
+                SEND_STRING("the");
+                break;
+            }
+        case KC_WITH:
+            if (record->event.pressed) {
+                SEND_STRING("with");
                 break;
             }
         case KC_ZMOUT:
