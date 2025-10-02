@@ -21,20 +21,6 @@ enum layers {
 // E for entry.
 #define ___E___ _______
 
-#define PWR_SFT LT(0, KC_A)
-#define BSE_S KC_S
-#define BSE_D ALT_T(KC_D)
-#define BSE_F LT(N, KC_F)
-// base left thumb #1
-#define BSE_LTHMB1 LT(U, KC_ESC)
-// base left thumb #2
-#define BSE_LTHMB2 GUI_T(KC_SPC)
-// base left thumb #2
-#define BSE_LTHMB3 CTL_T(KC_ENT)
-// base right thumb #3
-#define BSE_RTHMB3 HYPR_T(KC_BSPC)
-
-#define KC_LCKSCRN C(G(KC_Q))
 enum my_keycodes {
     // Following codes use platform-dependent modifier
     KC_ZMIN = SAFE_RANGE,
@@ -54,13 +40,28 @@ enum my_keycodes {
 // formatting macro:
 // mk2kWjrf<t_ý>a`kWkvehyjPwkr <t_ý>aj
 
+#define PWR_SFT LT(0, KC_A)
+#define BSE_D ALT_T(KC_D)
+#define BSE_F LT(N, KC_F)
+// base left thumb #1
+#define BSE_LTHMB1 LT(U, KC_ESC)
+// base left thumb #2
+#define BSE_LTHMB2 GUI_T(KC_SPC)
+// base left thumb #2
+#define BSE_LTHMB3 CTL_T(KC_ENT)
+// base right thumb #1
+#define BSE_RTHMB1 OSL(M)
+// base right thumb #3
+#define BSE_RTHMB3 HYPR_T(KC_BSPC)
+#define KC_LCKSCRN C(G(KC_Q))
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    _______,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    _______,       KC_A,          KC_S,         BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       KC_LCKSCRN,
-                                                BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           BSE_RTHMB3,    OS_LSFT,       OSL(M)
+                                                BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           BSE_RTHMB3,    OS_LSFT,       BSE_RTHMB1
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -99,23 +100,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define SEQ_END 0
 
-const uint16_t PROGMEM chrd_goto_ws1[] = {BSE_LTHMB2, BSE_S, KC_M, SEQ_END};
-const uint16_t PROGMEM chrd_goto_ws2[] = {BSE_LTHMB2, BSE_S, KC_COMM, SEQ_END};
-const uint16_t PROGMEM chrd_goto_ws3[] = {BSE_LTHMB2, BSE_S, KC_DOT, SEQ_END};
-const uint16_t PROGMEM chrd_goto_ws4[] = {BSE_LTHMB2, BSE_S, KC_J, SEQ_END};
-const uint16_t PROGMEM chrd_goto_ws5[] = {BSE_LTHMB2, BSE_S, KC_K, SEQ_END};
-const uint16_t PROGMEM chrd_goto_ws6[] = {BSE_LTHMB2, BSE_S, KC_L, SEQ_END};
-const uint16_t PROGMEM chrd_goto_ws7[] = {BSE_LTHMB2, BSE_S, KC_U, SEQ_END};
-const uint16_t PROGMEM chrd_goto_ws8[] = {BSE_LTHMB2, BSE_S, KC_I, SEQ_END};
-const uint16_t PROGMEM chrd_goto_ws9[] = {BSE_LTHMB2, BSE_S, KC_O, SEQ_END};
-const uint16_t PROGMEM chrd_ws_tggl[]  = {BSE_LTHMB2, BSE_D, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws1[] = {BSE_RTHMB3, KC_X, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws2[] = {BSE_RTHMB3, KC_C, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws3[] = {BSE_RTHMB3, KC_V, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws4[] = {BSE_RTHMB3, KC_S, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws5[] = {BSE_RTHMB3, BSE_D, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws6[] = {BSE_RTHMB3, BSE_F, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws7[] = {BSE_RTHMB3, KC_W, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws8[] = {BSE_RTHMB3, KC_E, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws9[] = {BSE_RTHMB3, KC_R, SEQ_END};
+const uint16_t PROGMEM chrd_ws_tggl[]  = {BSE_RTHMB3, KC_A, SEQ_END};
 
-const uint16_t PROGMEM chrd_curdir[]  = {BSE_S, BSE_D, BSE_F, SEQ_END};
-const uint16_t PROGMEM chrd_homedir[] = {BSE_S, BSE_D, BSE_F, KC_J, SEQ_END};
-const uint16_t PROGMEM chrd_updir[]   = {BSE_S, BSE_D, BSE_F, KC_K, SEQ_END};
+const uint16_t PROGMEM chrd_curdir[]  = {KC_S, BSE_D, BSE_F, SEQ_END};
+const uint16_t PROGMEM chrd_homedir[] = {KC_S, BSE_D, BSE_F, KC_J, SEQ_END};
+const uint16_t PROGMEM chrd_updir[]   = {KC_S, BSE_D, BSE_F, KC_K, SEQ_END};
 
-/* const uint16_t PROGMEM chrd_the[]  = {BSE_LTHMB2, BSE_RTHMB1, SEQ_END}; */
-/* const uint16_t PROGMEM chrd_with[] = {BSE_LTHMB2, BSE_RTHMB1, KC_W, SEQ_END}; */
+const uint16_t PROGMEM chrd_the[]  = {BSE_LTHMB1, BSE_RTHMB1, SEQ_END};
+const uint16_t PROGMEM chrd_with[] = {BSE_LTHMB1, BSE_RTHMB1, KC_W, SEQ_END};
 
 combo_t key_combos[] = {
   COMBO(chrd_goto_ws1, G(KC_1)),
@@ -131,8 +132,8 @@ combo_t key_combos[] = {
   COMBO(chrd_curdir, KC_CURDIR),
   COMBO(chrd_homedir, KC_HMEDIR),
   COMBO(chrd_updir, KC_UPDIR),
-  /* COMBO(chrd_the, KC_THE), */
-  /* COMBO(chrd_with, KC_WITH), */
+  COMBO(chrd_the, KC_THE),
+  COMBO(chrd_with, KC_WITH),
 };
 
 /* ****************** */
