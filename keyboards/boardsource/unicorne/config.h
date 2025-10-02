@@ -29,7 +29,6 @@
 // tap-hold logic
 #define TAPPING_TERM 120
 #define PERMISSIVE_HOLD
-#define CHORDAL_HOLD
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 #define FORCE_NKRO
