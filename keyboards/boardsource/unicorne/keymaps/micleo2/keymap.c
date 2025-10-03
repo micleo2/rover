@@ -42,13 +42,14 @@ enum my_keycodes {
 
 #define PWR_SFT LT(0, KC_A)
 #define BSE_D ALT_T(KC_D)
+#define BSE_S LT(U, KC_S)
 #define BSE_F LT(N, KC_F)
 // base left thumb #1
-#define BSE_LTHMB1 LT(U, KC_ESC)
+#define BSE_LTHMB1 CTL_T(KC_ESC)
 // base left thumb #2
 #define BSE_LTHMB2 GUI_T(KC_SPC)
 // base left thumb #2
-#define BSE_LTHMB3 CTL_T(KC_ENT)
+#define BSE_LTHMB3 KC_ENT
 // base right thumb #1
 #define BSE_RTHMB1 OSL(M)
 // base right thumb #3
@@ -59,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    _______,       KC_A,          KC_S,         BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    _______,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       KC_LCKSCRN,
                                                 BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           BSE_RTHMB3,    OS_LSFT,       BSE_RTHMB1
 ),
@@ -103,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM chrd_goto_ws1[] = {BSE_RTHMB3, KC_X, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws2[] = {BSE_RTHMB3, KC_C, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws3[] = {BSE_RTHMB3, KC_V, SEQ_END};
-const uint16_t PROGMEM chrd_goto_ws4[] = {BSE_RTHMB3, KC_S, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws4[] = {BSE_RTHMB3, BSE_S, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws5[] = {BSE_RTHMB3, BSE_D, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws6[] = {BSE_RTHMB3, BSE_F, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws7[] = {BSE_RTHMB3, KC_W, SEQ_END};
@@ -111,9 +112,9 @@ const uint16_t PROGMEM chrd_goto_ws8[] = {BSE_RTHMB3, KC_E, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws9[] = {BSE_RTHMB3, KC_R, SEQ_END};
 const uint16_t PROGMEM chrd_ws_tggl[]  = {BSE_RTHMB3, KC_A, SEQ_END};
 
-const uint16_t PROGMEM chrd_curdir[]  = {KC_S, BSE_D, BSE_F, SEQ_END};
-const uint16_t PROGMEM chrd_homedir[] = {KC_S, BSE_D, BSE_F, KC_J, SEQ_END};
-const uint16_t PROGMEM chrd_updir[]   = {KC_S, BSE_D, BSE_F, KC_K, SEQ_END};
+const uint16_t PROGMEM chrd_curdir[]  = {BSE_S, BSE_D, BSE_F, SEQ_END};
+const uint16_t PROGMEM chrd_homedir[] = {BSE_S, BSE_D, BSE_F, KC_J, SEQ_END};
+const uint16_t PROGMEM chrd_updir[]   = {BSE_S, BSE_D, BSE_F, KC_K, SEQ_END};
 
 const uint16_t PROGMEM chrd_the[]  = {BSE_LTHMB1, BSE_RTHMB1, SEQ_END};
 const uint16_t PROGMEM chrd_with[] = {BSE_LTHMB1, BSE_RTHMB1, KC_W, SEQ_END};
