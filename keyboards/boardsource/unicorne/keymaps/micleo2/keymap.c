@@ -1,3 +1,5 @@
+#include "keycodes.h"
+#include "quantum_keycodes.h"
 #include QMK_KEYBOARD_H
 #include "gw_oled.h"
 #include "quantum.h"
@@ -59,8 +61,8 @@ enum my_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    _______,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          _______,
+    KC_LSFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       KC_LCKSCRN,
                                                 BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           BSE_RTHMB3,    OS_LSFT,       BSE_RTHMB1
 ),
@@ -75,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAV] = LAYOUT_split_3x6_3(
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       C(KC_TAB),     KC_TAB,       LSFT(KC_TAB),  C(S(KC_TAB)),  _______,
     _______,       _______,       _______,      _______,       ___E___,       _______,              KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       _______,       _______,
-    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_ZMOUT,      KC_HOME,      KC_END,        KC_ZMIN,       _______,
+    _______,       _______,       _______,      _______,       _______,       _______,              _______,       ALT_T(KC_BSPC),KC_HOME,      KC_END,        KC_DEL,        _______,
                                                 _______,       _______,       _______,              _______,       KC_ENT,        _______
 ),
 
