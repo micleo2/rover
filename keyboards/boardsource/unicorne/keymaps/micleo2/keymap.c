@@ -51,9 +51,11 @@ enum my_keycodes {
 // base left thumb #2
 #define BSE_LTHMB2 GUI_T(KC_SPC)
 // base left thumb #2
-#define BSE_LTHMB3 KC_ENT
+#define BSE_LTHMB3 _______
 // base right thumb #1
 #define BSE_RTHMB1 OSL(M)
+// base right thumb #2
+#define BSE_RTHMB2 OS_LSFT
 // base right thumb #3
 #define BSE_RTHMB3 HYPR_T(KC_BSPC)
 #define KC_LCKSCRN C(G(KC_Q))
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          _______,
     KC_LSFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       KC_LCKSCRN,
-                                                BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           BSE_RTHMB3,    OS_LSFT,       BSE_RTHMB1
+                                                BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           KC_HYPR,       BSE_RTHMB2,    BSE_RTHMB1
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -118,8 +120,8 @@ const uint16_t PROGMEM chrd_curdir[]  = {BSE_S, BSE_D, BSE_F, SEQ_END};
 const uint16_t PROGMEM chrd_homedir[] = {BSE_S, BSE_D, BSE_F, KC_J, SEQ_END};
 const uint16_t PROGMEM chrd_updir[]   = {BSE_S, BSE_D, BSE_F, KC_K, SEQ_END};
 
-const uint16_t PROGMEM chrd_the[]  = {BSE_LTHMB1, BSE_RTHMB1, SEQ_END};
-const uint16_t PROGMEM chrd_with[] = {BSE_LTHMB1, BSE_RTHMB1, KC_W, SEQ_END};
+const uint16_t PROGMEM chrd_the[]  = {BSE_LTHMB2, BSE_RTHMB2, KC_J, SEQ_END};
+const uint16_t PROGMEM chrd_with[] = {BSE_LTHMB2, BSE_RTHMB2, KC_J, KC_W, SEQ_END};
 
 combo_t key_combos[] = {
   COMBO(chrd_goto_ws1, G(KC_1)),
@@ -292,12 +294,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         case KC_THE:
             if (record->event.pressed) {
-                SEND_STRING("the");
+                SEND_STRING("the ");
                 break;
             }
         case KC_WITH:
             if (record->event.pressed) {
-                SEND_STRING("with");
+                SEND_STRING("with ");
                 break;
             }
         case KC_ZMOUT:
