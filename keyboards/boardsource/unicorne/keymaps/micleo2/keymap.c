@@ -63,8 +63,8 @@ enum my_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          _______,
-    KC_LSFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    _______,       KC_Q,          SFT_T(KC_W),  KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          _______,
+    _______,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       KC_LCKSCRN,
                                                 BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           KC_HYPR,       BSE_RTHMB2,    BSE_RTHMB1
 ),
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYS] = LAYOUT_split_3x6_3(
     _______,       _______,       _______,      _______,       KC_PSCR,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
     _______,       _______,       KC_MUTE,      KC_VOLD,       KC_VOLU,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
-    QK_BOOT,       _______,       KC_MPLY,      KC_MPRV,       KC_MNXT,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        _______,
+    _______,       _______,       KC_MPLY,      KC_MPRV,       KC_MNXT,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        _______,
                                                 _______,       _______,       _______,              _______,       _______,       _______
 ),
 
