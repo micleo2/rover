@@ -46,11 +46,8 @@ enum layers {
 #define BSE_LTB GUI_T(KC_SPC)
 
 enum my_keycodes {
-  // Following codes use platform-dependent modifier
-  KC_ZMIN = SAFE_RANGE,
-  KC_ZMOUT,
   // Multi-character
-  KC_HMEDIR,
+  KC_HMEDIR = SAFE_RANGE,
   KC_CURDIR,
   KC_UPDIR,
 };
@@ -60,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BSE] = LAYOUT(
   KC_ESC,        KC_1,          KC_2,         KC_3,          KC_4,          KC_5,                                        KC_6,          KC_7,          KC_8,         KC_9,          KC_0,          QK_BOOT,
   _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                                        KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-  PWR_SFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                                        KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+  KC_LSFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                                        KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
   TG(_BLN),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,          _______,       _______,       KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       _______,
-                                KC_TAB,       CTL_T(KC_ESC), BSE_LTB,       SFT_T(KC_ENT),                               KC_HYPR,       SFT_T(KC_BSPC),OSL(M),       TG(_GME)
+                                KC_TAB,       CTL_T(KC_ESC), BSE_LTB,       SFT_T(KC_ENT),                               KC_HYPR,       OS_LSFT,       OSL(M),       TG(_GME)
 ),
 
 [_SYM] = LAYOUT(
@@ -77,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       C(KC_TAB),     KC_TAB,       LSFT(KC_TAB),  C(S(KC_TAB)),  _______,
   _______,       _______,       _______,      _______,       ___E___,       _______,                                     KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       _______,       _______,
-  _______,       _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       KC_ZMOUT,      KC_HOME,      KC_END,        KC_ZMIN,       _______,
+  _______,       _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       KC_BSPC,       KC_HOME,      KC_END,        KC_DEL,        _______,
                                 _______,      _______,       _______,       _______,                                     _______,       KC_ENT,        _______,      _______
 ),
 
@@ -289,20 +286,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 SEND_STRING("../");
                 break;
-            }
-            return false;
-        case KC_ZMOUT:
-            if (record->event.pressed) {
-                register_mods(cpy_mod);
-                tap_code16(KC_MINS);
-                unregister_mods(cpy_mod);
-            }
-            return false;
-        case KC_ZMIN:
-            if (record->event.pressed) {
-                register_mods(cpy_mod);
-                tap_code16(KC_PLUS);
-                unregister_mods(cpy_mod);
             }
             return false;
         // When tapped: oneshot shift.
