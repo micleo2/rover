@@ -12,6 +12,7 @@ enum layers {
     _SYS, // Sysctrl
     _NUM, // Numpad
     _GME, // Game
+    _BLN, // Blender
 };
 
 #define B _BSE
@@ -26,8 +27,7 @@ enum layers {
 
 enum my_keycodes {
     // Following codes use platform-dependent modifier
-    KC_ZMIN = SAFE_RANGE,
-    KC_ZMOUT,
+    KC_DELWORD = SAFE_RANGE,
     // Multi-character
     KC_HMEDIR,
     KC_CURDIR,
@@ -60,10 +60,10 @@ enum my_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    _______,       KC_Q,          SFT_T(KC_W),  GUI_T(KC_E),   KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
+    _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
     _______,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(_SYS),
-    QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       KC_LCKSCRN,
-                                                BSE_LTHMB1,    BSE_LTHMB2,    KC_TAB,               _______,       BSE_RTHMB2,    BSE_RTHMB1
+    QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       TG(_BLN),
+                                                BSE_LTHMB1,    BSE_LTHMB2,    SFT_T(KC_TAB),        KC_LCKSCRN,    BSE_RTHMB2,    BSE_RTHMB1
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -75,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAV] = LAYOUT_split_3x6_3(
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       C(KC_TAB),     KC_TAB,       S(KC_TAB),     C(S(KC_TAB)),  _______,
-    _______,       _______,       _______,      _______,       ___E___,       _______,              KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       A(KC_BSPC),    _______,
+    _______,       _______,       _______,      _______,       ___E___,       _______,              KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       KC_DELWORD,    _______,
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_BSPC,       KC_HOME,      KC_END,        KC_DEL,        _______,
-                                                _______,       _______,       _______,              _______,       KC_ENT,        _______
+                                                _______,       KC_ENT,        _______,              _______,       KC_ENT,        _______
 ),
 
 [_SYS] = LAYOUT_split_3x6_3(
@@ -89,8 +89,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NUM] = LAYOUT_split_3x6_3(
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_7,          KC_8,         KC_9,          KC_MINUS,      _______,
-    _______,       _______,       ___E___,      _______,       _______,       _______,              _______,       KC_4,          KC_5,         KC_6,          KC_PLUS,       _______,
-    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_1,          KC_2,         KC_3,          KC_COMM,       _______,
+    _______,       _______,       ___E___,      _______,       _______,       _______,              _______,       KC_4,          KC_5,         KC_6,          KC_DOT,        _______,
+    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_1,          KC_2,         KC_3,          KC_PLUS,       _______,
                                                 _______,       _______,       _______,              _______,       KC_0,          KC_BSPC
 ),
 
@@ -98,7 +98,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,       KC_ESC,        KC_1,         KC_2,          KC_3,          KC_4,                 _______,       _______,       _______,      _______,       _______,       ___E___,
     KC_T,          KC_TAB,        KC_Q,         KC_W,          KC_E,          KC_R,                 _______,       _______,       _______,      _______,       _______,       _______,
     KC_G,          KC_LSFT,       KC_A,         KC_S,          KC_D,          KC_F,                 _______,       _______,       _______,      _______,       _______,       _______,
-                                                KC_LCTL,       KC_SPC,        KC_LALT,              G(A(KC_G)),    _______,       _______
+                                                KC_C,          KC_SPC,        KC_LALT,              G(A(KC_G)),    _______,       _______
+),
+
+[_BLN] = LAYOUT_split_3x6_3(
+    KC_Y,          _______,       LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   _______,              _______,       _______,       _______,      _______,       _______,       _______,
+    KC_H,          _______,       _______,      _______,       _______,       _______,              _______,       _______,       _______,      _______,       _______,       _______,
+    KC_N,          _______,       _______,      _______,       _______,       _______,              _______,       _______,       _______,      _______,       _______,       ___E___,
+                                                _______,       ALT_T(KC_SPC), _______,              _______,       _______,       _______
 ),
 
 };
@@ -193,17 +200,20 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 /* ********************* */
 
 static uint8_t copypaste_modifier = 0;
+static uint8_t del_modifier       = 0;
 // Register the platform-correct copy/paste modifier.
 bool process_detected_host_os_user(os_variant_t detected_os) {
     switch (detected_os) {
         case OS_MACOS:
         case OS_IOS:
             copypaste_modifier = MOD_MASK_GUI;
+            del_modifier       = MOD_MASK_ALT;
             set_unicode_input_mode(UNICODE_MODE_MACOS);
             break;
         case OS_WINDOWS:
         case OS_LINUX:
             copypaste_modifier = MOD_MASK_CTRL;
+            del_modifier       = MOD_MASK_CTRL;
             set_unicode_input_mode(UNICODE_MODE_LINUX);
             break;
         default:
@@ -302,18 +312,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("with ");
                 break;
             }
-        case KC_ZMOUT:
+        case KC_DELWORD:
             if (record->event.pressed) {
-                register_mods(copypaste_modifier);
-                tap_code16(KC_MINS);
-                unregister_mods(copypaste_modifier);
-            }
-            return false;
-        case KC_ZMIN:
-            if (record->event.pressed) {
-                register_mods(copypaste_modifier);
-                tap_code16(KC_PLUS);
-                unregister_mods(copypaste_modifier);
+                register_mods(del_modifier);
+                tap_code16(KC_BSPC);
+                unregister_mods(del_modifier);
             }
             return false;
         // When tapped: oneshot shift.
@@ -337,57 +340,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case LT(0, KC_Q):
+        case LT(0, KC_W):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_1);
                 return false;
             }
             break;
-        case LT(0, KC_W):
+        case LT(0, KC_E):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_2);
                 return false;
             }
             break;
-        case LT(0, KC_E):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(KC_3);
-                return false;
-            }
-            break;
         case LT(0, KC_R):
             if (!record->tap.count && record->event.pressed) {
-                tap_code16(KC_4);
-                return false;
-            }
-            break;
-        case LT(0, KC_T):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(KC_Y);
-                return false;
-            }
-            break;
-        case LT(0, KC_G):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(KC_H);
-                return false;
-            }
-            break;
-        case LT(0, KC_X):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(KC_KP_7);
-                return false;
-            }
-            break;
-        case LT(0, KC_C):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(KC_KP_1);
-                return false;
-            }
-            break;
-        case LT(0, KC_V):
-            if (!record->tap.count && record->event.pressed) {
-                tap_code16(KC_KP_3);
+                tap_code16(KC_3);
                 return false;
             }
             break;
@@ -436,6 +403,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
         case _NUM:
             SET_COLOR(RGB_GREEN);
+            break;
+        case _BLN:
+            SET_COLOR(RGB_ORANGE);
             break;
         case _GME:
             SET_COLOR(RGB_PINK);
@@ -568,6 +538,9 @@ bool oled_task_user() {
             break;
         case _GME:
             oled_write_raw(gw_flagman_right, sizeof(gw_flagman_right));
+            break;
+        case _BLN:
+            oled_write_raw(gw_puff_f3, sizeof(gw_puff_f3));
             break;
         default:
             render_idle();
