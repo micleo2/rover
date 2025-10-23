@@ -55,29 +55,30 @@ enum my_keycodes {
 #define BSE_RTHMB1 OSL(M)
 // base right thumb #2
 #define BSE_RTHMB2 OS_LSFT
-#define KC_LCKSCRN C(G(KC_Q))
+// base right thumb #3
+#define BSE_RTHMB3 HYPR_T(C(G(KC_Q)))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
+    KC_TAB,        KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
     _______,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(_SYS),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       TG(_BLN),
-                                                BSE_LTHMB1,    BSE_LTHMB2,    SFT_T(KC_TAB),        KC_LCKSCRN,    BSE_RTHMB2,    BSE_RTHMB1
+                                                BSE_LTHMB1,    BSE_LTHMB2,    SFT_T(KC_ENTER),      BSE_RTHMB3,    BSE_RTHMB2,    BSE_RTHMB1
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
     _______,       _______,       KC_LT,        KC_GT,         KC_ASTR,       KC_GRV,               _______,       KC_AMPR,       KC_LCBR,      KC_RCBR,       KC_PERC,       _______,
-    _______,       KC_QUES,       KC_MINS,      KC_DQUO,       KC_QUOT,       KC_TILD,              KC_BSLS,       KC_PLUS,       KC_LPRN,      KC_RPRN,       KC_AT,         _______,
+    _______,       KC_QUES,       KC_MINS,      KC_DQUO,       KC_QUOT,       KC_TILD,              KC_BSLS,       KC_UNDS,       KC_LPRN,      KC_RPRN,       KC_PLUS,       _______,
     _______,       _______,       KC_HASH,      KC_EQL,        KC_EXLM,       KC_CIRC,              KC_DLR,        KC_PIPE,       KC_LBRC,      KC_RBRC,       _______,       _______,
-                                                KC_SLSH,       KC_UNDS,       _______,              _______,       _______,       ___E___
+                                                KC_SLSH,       _______,       KC_AT,                _______,       _______,       ___E___
 ),
 
 [_NAV] = LAYOUT_split_3x6_3(
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       C(KC_TAB),     KC_TAB,       S(KC_TAB),     C(S(KC_TAB)),  _______,
     _______,       _______,       _______,      _______,       ___E___,       _______,              KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       KC_DELWORD,    _______,
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_BSPC,       KC_HOME,      KC_END,        KC_DEL,        _______,
-                                                _______,       KC_ENT,        _______,              _______,       KC_ENT,        _______
+                                                _______,       _______,       _______,              _______,       KC_ENT,        _______
 ),
 
 [_SYS] = LAYOUT_split_3x6_3(
@@ -102,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_BLN] = LAYOUT_split_3x6_3(
-    KC_Y,          _______,       LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   _______,              _______,       _______,       _______,      _______,       _______,       _______,
-    KC_H,          _______,       _______,      _______,       _______,       _______,              _______,       _______,       _______,      _______,       _______,       _______,
-    KC_N,          _______,       _______,      _______,       _______,       _______,              _______,       _______,       _______,      _______,       _______,       ___E___,
+    _______,       _______,       LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   LT(0, KC_T),          _______,       _______,       _______,      _______,       _______,       _______,
+    _______,       _______,       _______,      _______,       _______,       LT(0, KC_G),          _______,       _______,       _______,      _______,       _______,       _______,
+    _______,       _______,       _______,      _______,       _______,       LT(0, KC_B),          _______,       _______,       _______,      _______,       _______,       ___E___,
                                                 _______,       ALT_T(KC_SPC), _______,              _______,       _______,       _______
 ),
 
@@ -125,6 +126,7 @@ const uint16_t PROGMEM chrd_goto_ws6[] = {BSE_LTHMB2, BSE_S, KC_L, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws7[] = {BSE_LTHMB2, BSE_S, KC_U, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws8[] = {BSE_LTHMB2, BSE_S, KC_I, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws9[] = {BSE_LTHMB2, BSE_S, KC_O, SEQ_END};
+const uint16_t PROGMEM chrd_tgl_ws[]   = {BSE_LTHMB2, BSE_D, SEQ_END};
 
 const uint16_t PROGMEM chrd_curdir[]  = {BSE_S, BSE_D, BSE_F, SEQ_END};
 const uint16_t PROGMEM chrd_homedir[] = {BSE_S, BSE_D, BSE_F, KC_J, SEQ_END};
@@ -143,6 +145,7 @@ combo_t key_combos[] = {
   COMBO(chrd_goto_ws7, G(KC_7)),
   COMBO(chrd_goto_ws8, G(KC_8)),
   COMBO(chrd_goto_ws9, G(KC_9)),
+  COMBO(chrd_tgl_ws, G(KC_D)),
   COMBO(chrd_curdir, KC_CURDIR),
   COMBO(chrd_homedir, KC_HMEDIR),
   COMBO(chrd_updir, KC_UPDIR),
@@ -355,6 +358,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LT(0, KC_R):
             if (!record->tap.count && record->event.pressed) {
                 tap_code16(KC_3);
+                return false;
+            }
+            break;
+        case LT(0, KC_T):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_Y);
+                return false;
+            }
+            break;
+        case LT(0, KC_G):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_H);
+                return false;
+            }
+            break;
+        case LT(0, KC_B):
+            if (!record->tap.count && record->event.pressed) {
+                tap_code16(KC_N);
                 return false;
             }
             break;
