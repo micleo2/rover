@@ -55,17 +55,17 @@ enum my_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT(
-  KC_ESC,        KC_1,          KC_2,         KC_3,          KC_4,          KC_5,                                        KC_6,          KC_7,          KC_8,         KC_9,          KC_0,          QK_BOOT,
-  _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                                        KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-  KC_LSFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                                        KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
-  TG(_BLN),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,          _______,       _______,       KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       _______,
-                                KC_TAB,       CTL_T(KC_ESC), BSE_LTB,       SFT_T(KC_ENT),                               KC_HYPR,       OS_LSFT,       OSL(M),       TG(_GME)
+  KC_ESC,        KC_1,          KC_2,         KC_3,          KC_4,          KC_5,                                        KC_6,          KC_7,          KC_8,         KC_9,          KC_0,          _______,
+  _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                                        KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
+  _______,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                                        KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+  QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,          _______,       _______,       KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       TG(_BLN),
+                                KC_TAB,       CTL_T(KC_ESC), BSE_LTB,       SFT_T(KC_ENT),                               KC_HYPR,       OS_LSFT,       OSL(M),       _______
 ),
 
 [_SYM] = LAYOUT(
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
   _______,       _______,       KC_LT,        KC_GT,         KC_ASTR,       KC_GRV,                                      _______,       KC_AMPR,       KC_LCBR,      KC_RCBR,       KC_PERC,       _______,
-  _______,       KC_QUES,       KC_MINS,      KC_DQUO,       KC_QUOT,       KC_TILD,                                     KC_BSLS,       KC_PLUS,       KC_LPRN,      KC_RPRN,       KC_UNDS,       _______,
+  _______,       KC_QUES,       KC_MINS,      KC_DQUO,       KC_QUOT,       KC_TILD,                                     KC_BSLS,       KC_UNDS,       KC_LPRN,      KC_RPRN,       KC_PLUS,       _______,
   _______,       _______,       KC_HASH,      KC_EQL,        KC_EXLM,       KC_CIRC,       _______,       _______,       KC_DLR,        KC_PIPE,       KC_LBRC,      KC_RBRC,       _______,       _______,
                                 _______,      KC_SLSH,       _______,       KC_AT,                                       _______,       _______,       ___E___,      _______
 ),
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAV] = LAYOUT(
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       C(KC_TAB),     KC_TAB,       LSFT(KC_TAB),  C(S(KC_TAB)),  _______,
-  _______,       _______,       _______,      _______,       ___E___,       _______,                                     KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       _______,       _______,
+  _______,       _______,       _______,      _______,       ___E___,       _______,                                     KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       C(KC_BSPC),    _______,
   _______,       _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       KC_BSPC,       KC_HOME,      KC_END,        KC_DEL,        _______,
                                 _______,      _______,       _______,       _______,                                     _______,       KC_ENT,        _______,      _______
 ),
@@ -158,9 +158,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         if (clockwise) {
-            rgblight_increase_val_noeeprom();
+            rgblight_increase_val();
         } else {
-            rgblight_decrease_val_noeeprom();
+            rgblight_decrease_val();
         }
     }
     return false;
