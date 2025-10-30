@@ -56,13 +56,13 @@ enum my_keycodes {
 // base right thumb #2
 #define BSE_RTHMB2 OS_LSFT
 // base right thumb #3
-#define BSE_RTHMB3 HYPR_T(C(G(KC_Q)))
+#define BSE_RTHMB3 KC_DELWORD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     KC_TAB,        KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
-    _______,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(_SYS),
+    C(G(KC_Q)),    KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(_SYS),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       TG(_BLN),
                                                 BSE_LTHMB1,    BSE_LTHMB2,    SFT_T(KC_ENTER),      BSE_RTHMB3,    BSE_RTHMB2,    BSE_RTHMB1
 ),
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAV] = LAYOUT_split_3x6_3(
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       C(KC_TAB),     KC_TAB,       S(KC_TAB),     C(S(KC_TAB)),  _______,
-    _______,       _______,       _______,      _______,       ___E___,       _______,              KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       KC_DELWORD,    _______,
+    _______,       _______,       _______,      _______,       ___E___,       _______,              KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       _______,       _______,
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_BSPC,       KC_HOME,      KC_END,        KC_DEL,        _______,
                                                 _______,       _______,       _______,              _______,       KC_ENT,        _______
 ),
