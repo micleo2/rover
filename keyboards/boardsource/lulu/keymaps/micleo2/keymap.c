@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,       KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                                        KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
   _______,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                                        KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
   QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,          _______,       _______,       KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       TG(_BLN),
-                                KC_TAB,       CTL_T(KC_ESC), BSE_LTB,       SFT_T(KC_ENT),                               KC_HYPR,       OS_LSFT,       OSL(M),       _______
+                                KC_TAB,       CTL_T(KC_ESC), BSE_LTB,       SFT_T(KC_ENT),                               C(KC_BSPC),    OS_LSFT,       OSL(M),       _______
 ),
 
 [_SYM] = LAYOUT(
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAV] = LAYOUT(
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       _______,       _______,      _______,       _______,       _______,
   _______,       _______,       _______,      _______,       _______,       _______,                                     _______,       C(KC_TAB),     KC_TAB,       LSFT(KC_TAB),  C(S(KC_TAB)),  _______,
-  _______,       _______,       _______,      _______,       ___E___,       _______,                                     KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       C(KC_BSPC),    _______,
+  _______,       _______,       _______,      _______,       ___E___,       _______,                                     KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       _______,       _______,
   _______,       _______,       _______,      _______,       _______,       _______,       _______,       _______,       _______,       KC_BSPC,       KC_HOME,      KC_END,        KC_DEL,        _______,
                                 _______,      _______,       _______,       _______,                                     _______,       KC_ENT,        _______,      _______
 ),
