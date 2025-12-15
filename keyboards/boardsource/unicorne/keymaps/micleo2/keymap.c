@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     KC_TAB,        KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
-    C(G(KC_Q)),    KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(_SYS),
+    C(G(KC_Q)),    KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          GUI_T(KC_J),   KC_K,         KC_L,          KC_SCLN,       OSL(_SYS),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       TG(_BLN),
                                                 BSE_LTHMB1,    BSE_LTHMB2,    SFT_T(KC_ENTER),      BSE_RTHMB3,    BSE_RTHMB2,    BSE_RTHMB1
 ),
