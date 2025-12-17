@@ -13,6 +13,7 @@ enum layers {
     _NUM, // Numpad
     _GME, // Game
     _BLN, // Blender
+    NUM_LAYERS
 };
 
 #define B _BSE
@@ -397,60 +398,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #    define RGB_LIGHT_BLUE 0x4c, 0xa8, 0xfc
 #    define BASE_COL RGB_LIGHT_BLUE
 
+// clang-format off
+uint8_t PROGMEM layer_color_map[NUM_LAYERS][3] = {
+    [_BSE] = { BASE_COL },
+    [_SYM] = { RGB_PURPLE },
+    [_NAV] = { RGB_BLUE },
+    [_SYS] = { RGB_RED },
+    [_NUM] = { RGB_GREEN },
+    [_GME] = { RGB_PINK },
+    [_BLN] = { RGB_ORANGE },
+};
+// clang-format on
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    uint8_t layer = get_highest_layer(layer_state);
-    uint8_t red;
-    uint8_t green;
-    uint8_t blue;
-#    define SET_COLOR_INNER(r, g, b) \
-        red   = r;                   \
-        green = g;                   \
-        blue  = b;
-
-#    define SET_COLOR(...) SET_COLOR_INNER(__VA_ARGS__)
-
-    switch (layer) {
-        case _BSE:
-            SET_COLOR(BASE_COL)
-            break;
-        case _SYM:
-            SET_COLOR(RGB_PURPLE);
-            break;
-        case _NAV:
-            SET_COLOR(RGB_BLUE);
-            break;
-        case _SYS:
-            SET_COLOR(RGB_RED);
-            break;
-        case _NUM:
-            SET_COLOR(RGB_GREEN);
-            break;
-        case _BLN:
-            SET_COLOR(RGB_ORANGE);
-            break;
-        case _GME:
-            SET_COLOR(RGB_PINK);
-            break;
-        default:
-            SET_COLOR(BASE_COL);
-    }
-
     for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
         for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
             uint8_t index = g_led_config.matrix_co[row][col];
             if (!(index >= led_min && index < led_max && index != NO_LED)) {
                 continue;
             }
-            uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col, row});
+            uint16_t layer_for_key = layer_switch_get_layer((keypos_t){col, row});
+            uint16_t kc            = keymap_key_to_keycode(layer_for_key, (keypos_t){col, row});
             if (kc == KC_NO) {
                 rgb_matrix_set_color(index, RGB_OFF);
                 continue;
             }
+            // This should only happen if the base layer for some reason has transparent keys.
             if (kc == KC_TRNS) {
                 rgb_matrix_set_color(index, BASE_COL);
                 continue;
             }
-            rgb_matrix_set_color(index, red, green, blue);
+            uint8_t *layer_colors = layer_color_map[layer_for_key];
+            rgb_matrix_set_color(index, layer_colors[0], layer_colors[1], layer_colors[2]);
         }
     }
     return false;
