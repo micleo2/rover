@@ -104,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_BLN] = LAYOUT_split_3x6_3(
-    _______,       _______,       LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   LT(0, KC_T),          _______,       _______,       _______,      _______,       _______,       _______,
-    _______,       _______,       _______,      _______,       _______,       LT(0, KC_G),          _______,       _______,       _______,      _______,       _______,       _______,
-    _______,       _______,       _______,      _______,       _______,       LT(0, KC_B),          _______,       _______,       _______,      _______,       _______,       ___E___,
+    _______,       _______,       LT(_BLN,KC_W),LT(_BLN,KC_E), LT(_BLN,KC_R), LT(_BLN, KC_T),       _______,       _______,       _______,      _______,       _______,       _______,
+    _______,       _______,       _______,      _______,       _______,       LT(_BLN, KC_G),       _______,       _______,       _______,      _______,       _______,       _______,
+    _______,       _______,       _______,      _______,       _______,       LT(_BLN, KC_B),       _______,       _______,       _______,      _______,       _______,       ___E___,
                                                 _______,       ALT_T(KC_SPC), _______,              _______,       _______,       _______
 ),
 
@@ -344,38 +344,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case LT(0, KC_W):
-            if (!record->tap.count && record->event.pressed) {
+        case LT(_BLN, KC_W):
+            if (!record->tap.count && !record->event.pressed) {
                 tap_code16(KC_1);
                 return false;
             }
             break;
-        case LT(0, KC_E):
-            if (!record->tap.count && record->event.pressed) {
+        case LT(_BLN, KC_E):
+            if (!record->tap.count && !record->event.pressed) {
                 tap_code16(KC_2);
                 return false;
             }
             break;
-        case LT(0, KC_R):
-            if (!record->tap.count && record->event.pressed) {
+        case LT(_BLN, KC_R):
+            if (!record->tap.count && !record->event.pressed) {
                 tap_code16(KC_3);
                 return false;
             }
             break;
-        case LT(0, KC_T):
-            if (!record->tap.count && record->event.pressed) {
+        case LT(_BLN, KC_T):
+            if (!record->tap.count && !record->event.pressed) {
                 tap_code16(KC_Y);
                 return false;
             }
             break;
-        case LT(0, KC_G):
-            if (!record->tap.count && record->event.pressed) {
+        case LT(_BLN, KC_G):
+            if (!record->tap.count && !record->event.pressed) {
                 tap_code16(KC_H);
                 return false;
             }
             break;
-        case LT(0, KC_B):
-            if (!record->tap.count && record->event.pressed) {
+        case LT(_BLN, KC_B):
+            if (!record->tap.count && !record->event.pressed) {
                 tap_code16(KC_N);
                 return false;
             }
@@ -410,6 +410,22 @@ uint8_t PROGMEM layer_color_map[NUM_LAYERS][3] = {
 };
 // clang-format on
 
+// If kc is a one-shot layer, mod-top, momentary switch layer etc. then this outputs the layer that
+// the kc switches to. No value is written if this kc performs no kind of layer changing function.
+void get_kc_layer_change(uint16_t kc, uint8_t *layer_out) {
+    switch (kc) {
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:;
+            *layer_out = QK_LAYER_TAP_GET_LAYER(kc);
+            break;
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:;
+            *layer_out = QK_LAYER_TAP_TOGGLE_GET_LAYER(kc);
+            break;
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:;
+            *layer_out = QK_ONE_SHOT_LAYER_GET_LAYER(kc);
+            break;
+    }
+}
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
         for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
@@ -417,7 +433,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             if (!(index >= led_min && index < led_max && index != NO_LED)) {
                 continue;
             }
-            uint16_t layer_for_key = layer_switch_get_layer((keypos_t){col, row});
+            uint8_t  layer_for_key = layer_switch_get_layer((keypos_t){col, row});
             uint16_t kc            = keymap_key_to_keycode(layer_for_key, (keypos_t){col, row});
             if (kc == KC_NO) {
                 rgb_matrix_set_color(index, RGB_OFF);
@@ -428,7 +444,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_set_color(index, BASE_COL);
                 continue;
             }
-            uint8_t *layer_colors = layer_color_map[layer_for_key];
+            uint8_t layer_for_color = layer_for_key;
+            get_kc_layer_change(kc, &layer_for_color);
+            uint8_t *layer_colors = layer_color_map[layer_for_color];
             rgb_matrix_set_color(index, layer_colors[0], layer_colors[1], layer_colors[2]);
         }
     }
