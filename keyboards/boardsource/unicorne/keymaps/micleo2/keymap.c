@@ -414,13 +414,13 @@ uint8_t PROGMEM layer_color_map[NUM_LAYERS][3] = {
 // the kc switches to. No value is written if this kc performs no kind of layer changing function.
 void get_kc_layer_change(uint16_t kc, uint8_t *layer_out) {
     switch (kc) {
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:;
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             *layer_out = QK_LAYER_TAP_GET_LAYER(kc);
             break;
-        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:;
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
             *layer_out = QK_LAYER_TAP_TOGGLE_GET_LAYER(kc);
             break;
-        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:;
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
             *layer_out = QK_ONE_SHOT_LAYER_GET_LAYER(kc);
             break;
     }
