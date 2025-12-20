@@ -7,6 +7,7 @@
 
 enum layers {
     _BSE, // Base
+    _GRP, // Graphite
     _SYM, // Symbol
     _NAV, // Navigation
     _SYS, // Sysctrl
@@ -45,13 +46,22 @@ enum my_keycodes {
 // mk2kWjrf<t_ý>a`kWkvehyjPwkr <t_ý>aj
 
 #define PWR_SFT LT(0, KC_A)
+
+// Qwerty
 #define BSE_S LT(_NUM, KC_S)
 #define BSE_D ALT_T(KC_D)
 #define BSE_F LT(_NAV, KC_F)
+// Graphite
+#define GRP_R LT(_NUM, KC_R)
+#define GRP_T ALT_T(KC_T)
+#define GRP_S LT(_NAV, KC_S)
+
 // base left thumb #1
 #define BSE_LTHMB1 CTL_T(KC_ESC)
 // base left thumb #2
 #define BSE_LTHMB2 GUI_T(KC_SPC)
+// base left thumb #3
+#define BSE_LTHMB3 SFT_T(KC_ENTER)
 // base right thumb #1
 #define BSE_RTHMB1 OSL(M)
 // base right thumb #2
@@ -62,10 +72,17 @@ enum my_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    KC_TAB,        KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
+    TG(_GRP),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
     C(G(KC_Q)),    KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          GUI_T(KC_J),   KC_K,         KC_L,          KC_SCLN,       OSL(_SYS),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       TG(_BLN),
-                                                BSE_LTHMB1,    BSE_LTHMB2,    SFT_T(KC_ENTER),      BSE_RTHMB3,    BSE_RTHMB2,    BSE_RTHMB1
+                                                BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           BSE_RTHMB3,    BSE_RTHMB2,    BSE_RTHMB1
+),
+
+[_GRP] = LAYOUT_split_3x6_3(
+    ___E___,       KC_B,          KC_L,         KC_D,          KC_W,          KC_Z,                 KC_NO,         KC_F,          KC_O,         KC_O,          KC_J,          TG(_GME),
+    C(G(KC_Q)),    KC_N,          GRP_R,        GRP_T,         GRP_S,         KC_G,                 KC_Y,          GUI_T(KC_H),   KC_A,         KC_E,          KC_I,          OSL(_SYS),
+    QK_BOOT,       KC_Q,          KC_X,         KC_M,          KC_C,          KC_V,                 KC_K,          KC_P,          KC_DOT,       KC_MINUS,      KC_COMM,       TG(_BLN),
+                                                BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           BSE_RTHMB3,    BSE_RTHMB2,    BSE_RTHMB1
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -127,7 +144,6 @@ const uint16_t PROGMEM chrd_goto_ws6[] = {BSE_LTHMB2, BSE_S, KC_L, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws7[] = {BSE_LTHMB2, BSE_S, KC_U, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws8[] = {BSE_LTHMB2, BSE_S, KC_I, SEQ_END};
 const uint16_t PROGMEM chrd_goto_ws9[] = {BSE_LTHMB2, BSE_S, KC_O, SEQ_END};
-const uint16_t PROGMEM chrd_tgl_ws[]   = {BSE_LTHMB2, BSE_D, SEQ_END};
 
 const uint16_t PROGMEM chrd_curdir[]  = {BSE_S, BSE_D, BSE_F, SEQ_END};
 const uint16_t PROGMEM chrd_homedir[] = {BSE_S, BSE_D, BSE_F, KC_J, SEQ_END};
@@ -146,7 +162,6 @@ combo_t key_combos[] = {
   COMBO(chrd_goto_ws7, G(KC_7)),
   COMBO(chrd_goto_ws8, G(KC_8)),
   COMBO(chrd_goto_ws9, G(KC_9)),
-  COMBO(chrd_tgl_ws, G(KC_D)),
   COMBO(chrd_curdir, KC_CURDIR),
   COMBO(chrd_homedir, KC_HMEDIR),
   COMBO(chrd_updir, KC_UPDIR),
@@ -401,6 +416,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // clang-format off
 uint8_t PROGMEM layer_color_map[NUM_LAYERS][3] = {
     [_BSE] = { BASE_COL },
+    [_GRP] = { RGB_WHITE },
     [_SYM] = { RGB_PURPLE },
     [_NAV] = { RGB_BLUE },
     [_SYS] = { RGB_RED },
@@ -538,6 +554,7 @@ bool oled_task_user() {
     const uint8_t cur_layer = get_highest_layer(layer_state);
     switch (cur_layer) {
         case _BSE:
+        case _GRP:
             if (render_downtaunt()) {
                 render_idle();
             }
