@@ -73,14 +73,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
     TG(_GRP),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          TG(_GME),
-    C(G(KC_Q)),    KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          GUI_T(KC_J),   KC_K,         KC_L,          KC_SCLN,       OSL(_SYS),
+    C(G(KC_Q)),    KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         GUI_T(KC_L),   KC_SCLN,       OSL(_SYS),
     QK_BOOT,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       TG(_BLN),
                                                 BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           BSE_RTHMB3,    BSE_RTHMB2,    BSE_RTHMB1
 ),
 
 [_GRP] = LAYOUT_split_3x6_3(
     ___E___,       KC_B,          KC_L,         KC_D,          KC_W,          KC_Z,                 KC_NO,         KC_F,          KC_O,         KC_O,          KC_J,          TG(_GME),
-    C(G(KC_Q)),    KC_N,          GRP_R,        GRP_T,         GRP_S,         KC_G,                 KC_Y,          GUI_T(KC_H),   KC_A,         KC_E,          KC_I,          OSL(_SYS),
+    C(G(KC_Q)),    KC_N,          GRP_R,        GRP_T,         GRP_S,         KC_G,                 KC_Y,          KC_H,          KC_A,         GUI_T(KC_E),   KC_I,          OSL(_SYS),
     QK_BOOT,       KC_Q,          KC_X,         KC_M,          KC_C,          KC_V,                 KC_K,          KC_P,          KC_DOT,       KC_MINUS,      KC_COMM,       TG(_BLN),
                                                 BSE_LTHMB1,    BSE_LTHMB2,    BSE_LTHMB3,           BSE_RTHMB3,    BSE_RTHMB2,    BSE_RTHMB1
 ),
