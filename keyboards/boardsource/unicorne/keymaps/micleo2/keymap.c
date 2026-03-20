@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_SYS] = LAYOUT_split_3x6_3(
-    _______,       _______,       _______,      _______,       KC_PSCR,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
+    _______,       _______,       KC_PSCR,      KC_BRID,       KC_BRIU,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
     _______,       _______,       KC_MUTE,      KC_VOLD,       KC_VOLU,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
     _______,       _______,       KC_MPLY,      KC_MPRV,       KC_MNXT,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        _______,
                                                 _______,       _______,       _______,              _______,       _______,       _______
@@ -210,6 +210,25 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GUI_T(KC_L):
+            return false;
+        default:
+            return true;
+    }
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GUI_T(KC_L):
+            return 200;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 /* ******************** */
 /* TAP-HOLD SECTION END */
 /* ******************** */
