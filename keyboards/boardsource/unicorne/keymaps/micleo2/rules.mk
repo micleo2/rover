@@ -44,3 +44,7 @@ CAPS_WORD_ENABLE = yes
 UNICODE_ENABLE = yes
 
 COMBO_ENABLE = yes
+
+# Raw HID link to the desktop shell (host_link.c).
+RAW_ENABLE = yes
+SRC += host_link.c

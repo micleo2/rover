@@ -262,6 +262,15 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
 
 // return true if qmk should continue processing the keycode as normal.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Workaround for https://github.com/qmk/qmk_firmware/issues/17569
+    // Shifted keycodes on the symbol layer (like KC_TILD) leak their weak shift mod
+    // to the next keypress when typing quickly. Clear it on each symbol layer keypress.
+    const uint8_t layer = read_source_layers_cache(record->event.key);
+    if (layer == _SYM && record->event.pressed) {
+        clear_weak_mods();
+        send_keyboard_report();
+    }
+
     // The following handlers simply notify callbacks.
     switch (QK_MODS_GET_BASIC_KEYCODE(keycode)) {
         case KC_B:
